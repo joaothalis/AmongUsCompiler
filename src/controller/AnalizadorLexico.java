@@ -3,9 +3,6 @@ package controller;
 import java.util.Arrays;
 import java.util.List;
 
-import model.Token;
-import model.TokenEnum;
-
 public class AnalizadorLexico {	
 	private static final List<Character> EM_BRANCO = Arrays.asList(' ', '\t', '\n', '\r');
     private static final List<Character> ESPECIAL = Arrays.asList('(', ')', '{', '}', ',', ';');

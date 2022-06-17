@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import model.Token;
+import model.TokenEnum;
 
 public class Compilador {
 	private final int INICIAL = 0;
@@ -109,7 +110,7 @@ public class Compilador {
                     break;
 				} else {
                     this.anteriorPos();
-                    return new Token(TokenEnum.IDENTIFIER.typeCode, lexema.toString());
+                    return new Token(TokenEnum.IDENTIFICADOR.tipo, lexema.toString());
                 }
 			case 2:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn2ndState(caracter)) != INVALIDO) {
@@ -117,7 +118,7 @@ public class Compilador {
                     break;                        
                 } else {
                 	this.anteriorPos();
-                    return new Token(TokenEnum.INTEGER.typeCode, lexema.toString());
+                    return new Token(TokenEnum.INTEIRO.tipo, lexema.toString());
                 }
 
             case 3:
@@ -125,7 +126,7 @@ public class Compilador {
                 	lexema.append(caracter);
                     break;
                 } else {
-                    throw new RuntimeException("ERRO! Float invalido: " + this.erroMensagem(lexema));
+                    throw new RuntimeException("ERRO! Real invalido: " + this.erroMensagem(lexema));
                 }
 
             case 4:
@@ -134,21 +135,21 @@ public class Compilador {
                     break;
                 } else {
                 	this.anteriorPos();
-                    return new Token(TokenEnum.REAL.typeCode, lexema.toString());
+                    return new Token(TokenEnum.REAL.tipo, lexema.toString());
                 }
 
             case 5:
             	this.anteriorPos();
-                return new Token(TokenEnum.SPECIAL_CHARACTER.typeCode, lexema.toString());
+                return new Token(TokenEnum.ESPECIAL.tipo, lexema.toString());
 
             case 6:
             	this.anteriorPos();
-                return new Token(TokenEnum.ARITHMETIC_OPERATOR.typeCode, lexema.toString());
+                return new Token(TokenEnum.ARITMETICO.tipo, lexema.toString());
 
             case 7:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn7thState(caracter)) == ATRIBUICAO) {
                 	this.anteriorPos();
-                    return new Token(TokenEnum.ASSIGNMENT_OPERATOR.typeCode, lexema.toString());
+                    return new Token(TokenEnum.ATRIBUICAO.tipo, lexema.toString());
                 }
 
                 lexema.append(caracter);
@@ -157,7 +158,7 @@ public class Compilador {
             case 8:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn8thState(caracter)) == RELACIONAL) {
                 	this.anteriorPos();
-                    return new Token(TokenEnum.RELATIONAL_OPERATOR.typeCode, lexema.toString());                        
+                    return new Token(TokenEnum.RELACIONAL.tipo, lexema.toString());                        
                 }
 
                 lexema.append(caracter);
@@ -165,7 +166,7 @@ public class Compilador {
                 
             case 9:
             	this.anteriorPos();
-                return new Token(TokenEnum.RELATIONAL_OPERATOR.typeCode, lexema.toString());
+                return new Token(TokenEnum.RELACIONAL.tipo, lexema.toString());
                 
             case 10:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn10thState(caracter)) != INVALIDO) {
@@ -177,7 +178,7 @@ public class Compilador {
 
             case 11:
             	this.anteriorPos();
-                return new Token(TokenEnum.RESERVED_WORD.typeCode, lexema.toString());
+                return new Token(TokenEnum.RESERVADA.tipo, lexema.toString());
 
             case 12:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn12thState(caracter)) != INVALIDO) {
@@ -197,7 +198,7 @@ public class Compilador {
 
             case 14:
             	this.anteriorPos();
-                return new Token(TokenEnum.SPECIAL_OPERATOR.typeCode, lexema.toString());
+                return new Token(TokenEnum.THALIS.tipo, lexema.toString());
 
             case 15:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn15thState(caracter)) != INVALIDO) {
@@ -217,7 +218,7 @@ public class Compilador {
 
             case 17:
             	this.anteriorPos();
-                return new Token(TokenEnum.CHAR.typeCode, lexema.toString());
+                return new Token(TokenEnum.CHAR.tipo, lexema.toString());
 
             case 18:
                 if (this.proximoChar() && (estado = AnalizadorLexico.whenOn18thState(caracter)) != INVALIDO) {
@@ -237,7 +238,7 @@ public class Compilador {
 
             case 99:
             	this.anteriorPos();
-                return new Token(TokenEnum.CODE_END.typeCode, lexema.toString());
+                return new Token(TokenEnum.FIM.tipo, lexema.toString());
 			}
 		}
 		return null;
