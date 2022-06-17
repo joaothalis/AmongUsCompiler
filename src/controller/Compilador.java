@@ -11,7 +11,7 @@ public class Compilador {
 	private final int INVALIDO = -1;
 	private final int ATRIBUICAO = 7;
 	private final int RELACIONAL = 8;
-	private final int RESERVADA = 11;
+	private final int RESERVADO = 11;
 	
 	private char[] conteudo;
 	private int conteudoIndex;
@@ -97,12 +97,153 @@ public class Compilador {
 						}
 					}
 				} else {
-					throw new RuntimeException("ERROR! Caracter no formato invalido: " + lexema.toString());
+					throw new RuntimeException("ERRO! Caracter invalido: " + this.erroMensagem(lexema));
 				}
 				break;
-			}
 			case 1:
-				
+				if(this.proximoChar() && (estado = AnalizadorLexico.whenOn1stState(caracter)) != INVALIDO) {
+					lexema.append(caracter);
+                    if (AnalizadorLexico.ehReservada(lexema.toString())) {
+                        estado = RESERVADO;
+                    }
+                    break;
+				} else {
+                    this.anteriorPos();
+                    return new Token(TokenEnum.IDENTIFIER.typeCode, lexema.toString());
+                }
+			case 2:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn2ndState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;                        
+                } else {
+                	this.anteriorPos();
+                    return new Token(TokenEnum.INTEGER.typeCode, lexema.toString());
+                }
+
+            case 3:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn3rdState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Float invalido: " + this.erroMensagem(lexema));
+                }
+
+            case 4:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn4thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                	this.anteriorPos();
+                    return new Token(TokenEnum.REAL.typeCode, lexema.toString());
+                }
+
+            case 5:
+            	this.anteriorPos();
+                return new Token(TokenEnum.SPECIAL_CHARACTER.typeCode, lexema.toString());
+
+            case 6:
+            	this.anteriorPos();
+                return new Token(TokenEnum.ARITHMETIC_OPERATOR.typeCode, lexema.toString());
+
+            case 7:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn7thState(caracter)) == ATRIBUICAO) {
+                	this.anteriorPos();
+                    return new Token(TokenEnum.ASSIGNMENT_OPERATOR.typeCode, lexema.toString());
+                }
+
+                lexema.append(caracter);
+                break;                    
+
+            case 8:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn8thState(caracter)) == RELACIONAL) {
+                	this.anteriorPos();
+                    return new Token(TokenEnum.RELATIONAL_OPERATOR.typeCode, lexema.toString());                        
+                }
+
+                lexema.append(caracter);
+                break;                    
+                
+            case 9:
+            	this.anteriorPos();
+                return new Token(TokenEnum.RELATIONAL_OPERATOR.typeCode, lexema.toString());
+                
+            case 10:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn10thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Relacional invalido: " + this.erroMensagem(lexema));
+                }
+
+            case 11:
+            	this.anteriorPos();
+                return new Token(TokenEnum.RESERVED_WORD.typeCode, lexema.toString());
+
+            case 12:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn12thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Palavra especial invalida: " + this.erroMensagem(lexema));
+                }
+
+            case 13:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn13thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Palavra especial invalida: " + this.erroMensagem(lexema));
+                }
+
+            case 14:
+            	this.anteriorPos();
+                return new Token(TokenEnum.SPECIAL_OPERATOR.typeCode, lexema.toString());
+
+            case 15:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn15thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Token caracter invalido: " + this.erroMensagem(lexema));
+                }
+
+            case 16:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn16thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Token caracter invalido: " + this.erroMensagem(lexema));
+                }
+
+            case 17:
+            	this.anteriorPos();
+                return new Token(TokenEnum.CHAR.typeCode, lexema.toString());
+
+            case 18:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn18thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Palavra especial invalida: " + this.erroMensagem(lexema));
+                }
+
+            case 19:
+                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn19thState(caracter)) != INVALIDO) {
+                	lexema.append(caracter);
+                    break;
+                } else {
+                    throw new RuntimeException("ERRO! Palavra especial invalida: " + this.erroMensagem(lexema));
+                }
+
+            case 99:
+            	this.anteriorPos();
+                return new Token(TokenEnum.CODE_END.typeCode, lexema.toString());
+			}
 		}
+		return null;
 	}
+	
+	private String erroMensagem(StringBuffer lexema) {
+        return "Token invalido: " + lexema.toString() + this.conteudo[this.conteudoIndex - 1];
+    }
 }
