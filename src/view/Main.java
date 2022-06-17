@@ -11,15 +11,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		String arquivo = "src\\AnalisadorLexico\\file.txt";
-		//String dadosArquivo;
-
-		//AnalizadorLexico lexico = new AnalizadorLexico(conteudo);
+		
 		Compilador comp = new Compilador(arquivo);
-
-		//Token token = null;
-		//while((token = lexico.nextToken()) != null) {
-		//	System.out.println(token);
-		//}
+		//AnalizadorSintatico parser = new AnalizadorSintatico(comp);
+		
+		//parser.();
 	}
 
 }
