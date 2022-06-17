@@ -89,7 +89,7 @@ public class Compilador {
 			
 			switch(estado) {
 			case 0:
-				if(this.proximoChar() && (estado = AnalizadorLexico.estadoInicial(caracter)) !=INVALIDO) {
+				if(this.proximoChar() && (estado = AnalisadorLexico.estadoInicial(caracter)) !=INVALIDO) {
 					if(caracter != INICIAL) {
 						lexema.append(caracter);
 					} else {
@@ -102,9 +102,9 @@ public class Compilador {
 				}
 				break;
 			case 1:
-				if(this.proximoChar() && (estado = AnalizadorLexico.whenOn1stState(caracter)) != INVALIDO) {
+				if(this.proximoChar() && (estado = AnalisadorLexico.whenOn1stState(caracter)) != INVALIDO) {
 					lexema.append(caracter);
-                    if (AnalizadorLexico.ehReservada(lexema.toString())) {
+                    if (AnalisadorLexico.ehReservada(lexema.toString())) {
                         estado = RESERVADO;
                     }
                     break;
@@ -113,7 +113,7 @@ public class Compilador {
                     return new Token(TokenEnum.IDENTIFICADOR.tipo, lexema.toString());
                 }
 			case 2:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn2ndState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn2ndState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;                        
                 } else {
@@ -122,7 +122,7 @@ public class Compilador {
                 }
 
             case 3:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn3rdState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn3rdState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -130,7 +130,7 @@ public class Compilador {
                 }
 
             case 4:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn4thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn4thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -147,7 +147,7 @@ public class Compilador {
                 return new Token(TokenEnum.ARITMETICO.tipo, lexema.toString());
 
             case 7:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn7thState(caracter)) == ATRIBUICAO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn7thState(caracter)) == ATRIBUICAO) {
                 	this.anteriorPos();
                     return new Token(TokenEnum.ATRIBUICAO.tipo, lexema.toString());
                 }
@@ -156,7 +156,7 @@ public class Compilador {
                 break;                    
 
             case 8:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn8thState(caracter)) == RELACIONAL) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn8thState(caracter)) == RELACIONAL) {
                 	this.anteriorPos();
                     return new Token(TokenEnum.RELACIONAL.tipo, lexema.toString());                        
                 }
@@ -169,7 +169,7 @@ public class Compilador {
                 return new Token(TokenEnum.RELACIONAL.tipo, lexema.toString());
                 
             case 10:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn10thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn10thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -181,7 +181,7 @@ public class Compilador {
                 return new Token(TokenEnum.RESERVADA.tipo, lexema.toString());
 
             case 12:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn12thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn12thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -189,7 +189,7 @@ public class Compilador {
                 }
 
             case 13:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn13thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn13thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -201,7 +201,7 @@ public class Compilador {
                 return new Token(TokenEnum.THALIS.tipo, lexema.toString());
 
             case 15:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn15thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn15thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -209,7 +209,7 @@ public class Compilador {
                 }
 
             case 16:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn16thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn16thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -221,7 +221,7 @@ public class Compilador {
                 return new Token(TokenEnum.CHAR.tipo, lexema.toString());
 
             case 18:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn18thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn18thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {
@@ -229,7 +229,7 @@ public class Compilador {
                 }
 
             case 19:
-                if (this.proximoChar() && (estado = AnalizadorLexico.whenOn19thState(caracter)) != INVALIDO) {
+                if (this.proximoChar() && (estado = AnalisadorLexico.whenOn19thState(caracter)) != INVALIDO) {
                 	lexema.append(caracter);
                     break;
                 } else {

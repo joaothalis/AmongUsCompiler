@@ -3,7 +3,7 @@ package controller;
 import java.util.Arrays;
 import java.util.List;
 
-public class AnalizadorLexico {	
+public class AnalisadorLexico {	
 	private static final List<Character> EM_BRANCO = Arrays.asList(' ', '\t', '\n', '\r');
     private static final List<Character> ESPECIAL = Arrays.asList('(', ')', '{', '}', ',', ';');
     private static final List<Character> ARITMETICO = Arrays.asList('+', '-', '/', '*');
